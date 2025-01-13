@@ -1,64 +1,56 @@
 ﻿using System.Text.Json;
+using System.Xml;
 using static System.Reflection.Metadata.BlobBuilder;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Bibliotekshanteringssystem_AVANCERAD
 {
-    internal class Savedata
+    public class DataManipulation
     {
-        var json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
-        File.WriteAllText(FilePath, json);
-    }
+        public static LibraryData ReadData()
+        {
+            string filePath = "data.json";
 
-    public void AddBook()
-    {
-            Console.Write("Enter the book title: ");
-            string title = Console.ReadLine();
-
-            Console.Write("Enter the name of the author: ");
-            string author = Console.ReadLine();
-
-            Console.Write("Enter genre: ");
-            string genre = Console.ReadLine();
-
-            Console.Write("Enter publicationyear: ");
-            int year = int.Parse(Console.ReadLine());
-
-            Console.Write("Enter ISBN: ");
-            string isbn = Console.ReadLine();
-
-            int id = Book.Any() ? Book.Max(b => b.Id) + 1 : 1;
-            Book.Add(new Book { Id = id, Title = title, Author = author, Genre = genre, PublicationYear = year, Isbn = isbn });
-
-            Console.WriteLine("The book is added.");
-    }
-
-    public void AddAuthor()
-    {
-            Console.Write("Enter the name of the author: ");
-            string name = Console.ReadLine();
-
-            Console.Write("Enter the country of the author: ");
-            string country = Console.ReadLine();
-
-            int id = Author.Any() ? Author.Max(a => a.Id) + 1 : 1;
-            Author.Add(new Author { Id = id, Name = name, Country = country });
-
-            Console.WriteLine("Author is added.");
-    }
-
-    public void ListAll()
-    {
-            Console.WriteLine("\nBöcker:");
-            foreach (var book in Book)
+            try
             {
-                Console.WriteLine($"ID: {book.Id}, Titel: {book.Title}, Författare: {book.Author}, Genre: {book.Genre}, År: {book.PublicationYear}, ISBN: {book.Isbn}, Medelbetyg: {book.AverageRating:F1}");
-            }
+                // Read the JSON file
+                string jsonData = File.ReadAllText(filePath);
 
-            Console.WriteLine("\nFörfattare:");
-            foreach (var author in Author)
-            {
-                Console.WriteLine($"ID: {author.Id}, Namn: {author.Name}, Land: {author.Country}");
+                // Deserialize the JSON data into objects
+                var allBooksAndAuthors = JsonSerializer.Deserialize<LibraryData>(jsonData);
+
+                return allBooksAndAuthors;
+
             }
+            catch (Exception ex)
+            {
+                throw new Exception("Går inte läsa från JSON fil");
+            }
+        }
+
+        public static void SaveData(LibraryData data)
+        {
+            string filePath = "data.json";
+
+            try
+            {
+                // Serialisera objektet till JSON-sträng
+                string jsonData = JsonSerializer.Serialize(data, new JsonSerializerOptions
+                {
+                    WriteIndented = true // Gör JSON lättläst
+                });
+
+                // Skriv till filen
+                File.WriteAllText(filePath, jsonData);
+
+                Console.WriteLine("Data har sparats framgångsrikt.");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Kunde inte spara data till JSON fil", ex);
+            }
+        }
 
     }
 }
+    

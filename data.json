@@ -1,0 +1,76 @@
+{
+  "Books": [
+    {
+      "Id": 1,
+      "Title": "The Great Adventure",
+      "Author": "John Doe",
+      "Genre": "Adventure",
+      "PublicationYear": 2020,
+      "ISBN": "978-3-16-148410-0",
+      "Reviews": [ 5, 4, 3 ]
+    },
+    {
+      "Id": 2,
+      "Title": "Mystery of the Lake",
+      "Author": "Jane Smith",
+      "Genre": "Mystery",
+      "PublicationYear": 2018,
+      "ISBN": "978-1-23-456789-0",
+      "Reviews": [ 4, 5, 5, 4 ]
+    },
+    {
+      "Id": 3,
+      "Title": "Science Wonders",
+      "Author": "Albert Newton",
+      "Genre": "Science",
+      "PublicationYear": 2022,
+      "ISBN": "978-0-19-852663-6",
+      "Reviews": [ 5, 5, 5 ]
+    },
+    {
+      "Id": 4,
+      "Title": "Fantasy Realm",
+      "Author": "Luna Star",
+      "Genre": "Fantasy",
+      "PublicationYear": 2019,
+      "ISBN": "978-0-330-49152-6",
+      "Reviews": [ 3, 4 ]
+    },
+    {
+      "Id": 5,
+      "Title": "Historical Moments",
+      "Author": "Peter Historian",
+      "Genre": "History",
+      "PublicationYear": 2015,
+      "ISBN": "978-0-471-48648-0",
+      "Reviews": [ 4, 3, 2, 4 ]
+    }
+  ],
+  "Authors": [
+    {
+      "Id": 1,
+      "Name": "John Doe",
+      "Country": "USA"
+    },
+    {
+      "Id": 2,
+      "Name": "Jane Smith",
+      "Country": "Canada"
+    },
+    {
+      "Id": 3,
+      "Name": "Albert Newton",
+      "Country": "UK"
+    },
+    {
+      "Id": 4,
+      "Name": "Luna Star",
+      "Country": "Australia"
+    },
+    {
+      "Id": 5,
+      "Name": "Peter Historian",
+      "Country": "Germany"
+    }
+  ]
+}

@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics.Metrics;
+using System.Runtime.InteropServices;
+using System.Xml.Linq;
 
 namespace Bibliotekshanteringssystem_AVANCERAD
 {
@@ -6,8 +8,23 @@ namespace Bibliotekshanteringssystem_AVANCERAD
     {
         static void Main(string[] args)
         {
-            Library library = new Library();
+            //Välkommen till till bibliotek
+            Console.WriteLine("Welcome to the library");
 
+            //DataManipulation.ReadData();
+
+            LibraryData listsFromJson = DataManipulation.ReadData();
+            // iställer för void och att skriva ut
+            // du ska ändra så att den här metoden returnerar listorna (books och authors)
+            // för att sen, när du deklarerar din Library,
+            // du har en konstruktor som tar emot dessa listor och
+            // sätter värde till de listorna som du använder för CRUD
+
+            //Skapar biblioteket
+            // how it should look like 
+            Library library = new Library(listsFromJson.Books, listsFromJson.Authors);
+
+            //Lista för vad du ska kunna göra och välja mellan
             bool running = true;
             while (running)
             {
@@ -21,9 +38,10 @@ namespace Bibliotekshanteringssystem_AVANCERAD
                 Console.WriteLine("Search and filter books");
                 Console.WriteLine("Exit and save the data");
 
-                Console.WriteLine("Choose an option");
+                Console.WriteLine("Choose an option please");
                 string choice = Console.ReadLine();
 
+                //Skapar alla mina case för vad man skall kunna göra i biblioteket
                 switch (choice)
                 {
                     case "1":
@@ -51,22 +69,20 @@ namespace Bibliotekshanteringssystem_AVANCERAD
                         break;
 
                     case "7":
-                        library.ListAll();
+                        library.ListBooks();
                         break;
 
                     case "8":
-                        library.SearchAndFilter();
+                        library.ListAuthors();
                         break;
 
                     case "9":
                         library.SaveData();
-                        running = false;
                         break;
 
                     default:
-                        Console.WriteLine("Invalid choose. Please try again.");
+                        Console.WriteLine("Invalid option. Please choose again.");
                         break;
-
 
                 }
             }
